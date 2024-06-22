@@ -1,11 +1,12 @@
 "use client";
 
+import { ArticleCategory } from "@/app/types/article-type";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export function NavItem(p: {
-  category: string;
+  category: ArticleCategory;
   alt: string;
   src: StaticImageData;
 }) {

@@ -1,23 +1,25 @@
+import { ArticleApi } from "@/app/api/article-api";
+import { ArticleList } from "@/app/components/ArticleList/ArticleList";
 import { CATEGORIES_ITEMS } from "@/app/constant";
-import { ArticleCategory } from "@/app/types/article-type";
+import { Article, ArticleCategory } from "@/app/types/article-type";
 import Image from "next/image";
 
-export default function CategoryDetailPage(p: {
-  params: { category: ArticleCategory; date: string };
-  searchParams: { date: string };
+export default async function ArticleByCategoryPage(p: {
+  params: { category: ArticleCategory; article: Article };
 }) {
-  const categoryItem = CATEGORIES_ITEMS[p.params.category];
+  const articles = await ArticleApi.fetchByCategory(p.params.category);
 
   return (
-    <div className="flex items-center space-x-4">
-      <Image
-        src={categoryItem.src}
-        alt={categoryItem.alt}
-        className="w-10 h-10"
-      />
-      <h1 className="font-bold capitalize text-3xl">
-        {p.params.category} News
-      </h1>
-    </div>
+    <>
+      <div className="flex items-center space-x-4 mb-16">
+        <Image
+          src={CATEGORIES_ITEMS[p.params.category].src}
+          alt="Category icon"
+          className="w-10 h-10"
+        />
+        <h1 className="text-4xl font-bold capitalize">{p.params.category}</h1>
+      </div>
+      <ArticleList articles={articles} />
+    </>
   );
 }

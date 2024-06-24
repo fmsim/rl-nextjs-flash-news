@@ -10,8 +10,8 @@ export function NavItem(p: {
   alt: string;
   src: StaticImageData;
 }) {
-  const pathName = usePathname();
-  const isActive = "/articles/category/" + p.category === pathName;
+  const pathname = usePathname();
+  const isActive = pathname === "/articles/category/" + p.category;
 
   return (
     <Link
